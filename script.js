@@ -51,7 +51,7 @@ function updateTabWiseCount() {
     }
   });
 
-  jobCountText.innerText = `${visible} of ${total} jobs`;
+  jobCountText.innerText = `${visible} of ${total} Jobs`;
 
   if (visible === 0) {
     emptyState.classList.remove("hidden");
