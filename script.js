@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+
   const totalCount = document.getElementById("total-count");
   const interviewCount = document.getElementById("interview-count");
   const rejectedCount = document.getElementById("rejected-count");
@@ -12,9 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentFilter = "all";
 
-  // ----------------------------
-  // ACTIVE TAB STYLE FUNCTION
-  // ----------------------------
+  
   function setActiveTab(activeButton) {
     const tabs = [allTab, interviewTab, rejectedTab];
 
@@ -77,9 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ----------------------------
-  // STATUS BUTTONS
-  // ----------------------------
+ 
   document.querySelectorAll(".interview-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       const jobCard = btn.closest(".job-card");
@@ -120,9 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // ----------------------------
-  // TAB EVENTS
-  // ----------------------------
+ 
   allTab.addEventListener("click", function () {
     setActiveTab(allTab);
     filterJobs("all");
@@ -138,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
     filterJobs("rejected");
   });
 
-  // Default active tab
+  
   setActiveTab(allTab);
   updateCounts();
-});
+
