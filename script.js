@@ -12,6 +12,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentFilter = "all";
 
+  // ----------------------------
+  // ACTIVE TAB STYLE FUNCTION
+  // ----------------------------
+  function setActiveTab(activeButton) {
+    const tabs = [allTab, interviewTab, rejectedTab];
+
+    tabs.forEach((tab) => {
+      tab.classList.remove("bg-[#3B82F6]", "text-white", "scale-105");
+      tab.classList.add("bg-white");
+    });
+
+    activeButton.classList.remove("bg-white");
+    activeButton.classList.add("bg-[#3B82F6]", "text-white", "scale-105");
+  }
+
   function updateCounts() {
     const allJobs = document.querySelectorAll(".job-card");
     const interviewJobs = document.querySelectorAll(
@@ -31,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function filterJobs(status) {
     currentFilter = status;
+
     const jobs = document.querySelectorAll(".job-card");
 
     jobs.forEach(function (job) {
@@ -45,11 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function checkEmptyState() {
-    const visibleJobs = document.querySelectorAll(
-      `.job-card${currentFilter === "all" ? "" : `[data-status="${currentFilter}"]`}`,
-    );
-
+    const visibleJobs = document.querySelectorAll(".job-card");
     let count = 0;
+
     visibleJobs.forEach((job) => {
       if (job.style.display !== "none") {
         count++;
@@ -63,6 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // ----------------------------
+  // STATUS BUTTONS
+  // ----------------------------
   document.querySelectorAll(".interview-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       const jobCard = btn.closest(".job-card");
@@ -70,9 +87,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const badge = jobCard.querySelector(".status-badge");
       badge.innerText = "Interview";
-
-      badge.classList.remove("bg-[#EEF4FF]");
-      badge.classList.add("bg-green-500", "text-white");
+      badge.className =
+        "status-badge bg-green-500 text-white px-6 py-1 rounded-md";
 
       updateCounts();
       filterJobs(currentFilter);
@@ -86,9 +102,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const badge = jobCard.querySelector(".status-badge");
       badge.innerText = "Rejected";
-
-      badge.classList.remove("bg-[#EEF4FF]");
-      badge.classList.add("bg-red-500", "text-white");
+      badge.className =
+        "status-badge bg-red-500 text-white px-6 py-1 rounded-md";
 
       updateCounts();
       filterJobs(currentFilter);
@@ -105,17 +120,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // ----------------------------
+  // TAB EVENTS
+  // ----------------------------
   allTab.addEventListener("click", function () {
+    setActiveTab(allTab);
     filterJobs("all");
   });
 
   interviewTab.addEventListener("click", function () {
+    setActiveTab(interviewTab);
     filterJobs("interview");
   });
 
   rejectedTab.addEventListener("click", function () {
+    setActiveTab(rejectedTab);
     filterJobs("rejected");
   });
 
+  // Default active tab
+  setActiveTab(allTab);
   updateCounts();
 });
