@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const emptyState = document.getElementById("empty-state");
 
+  let currentFilter = "all";
+
   function updateCounts() {
     const allJobs = document.querySelectorAll(".job-card");
     const interviewJobs = document.querySelectorAll(
@@ -24,31 +26,44 @@ document.addEventListener("DOMContentLoaded", function () {
     rejectedCount.innerText = rejectedJobs.length;
     jobCountText.innerText = allJobs.length + " Jobs";
 
-    if (allJobs.length === 0) {
-      emptyState.classList.remove("hidden");
-    } else {
-      emptyState.classList.add("hidden");
-    }
+    checkEmptyState();
   }
 
   function filterJobs(status) {
+    currentFilter = status;
     const jobs = document.querySelectorAll(".job-card");
 
     jobs.forEach(function (job) {
       if (status === "all") {
         job.style.display = "block";
       } else {
-        if (job.dataset.status === status) {
-          job.style.display = "block";
-        } else {
-          job.style.display = "none";
-        }
+        job.style.display = job.dataset.status === status ? "block" : "none";
       }
     });
+
+    checkEmptyState();
   }
 
-  const interviewButtons = document.querySelectorAll(".interview-btn");
-  interviewButtons.forEach(function (btn) {
+  function checkEmptyState() {
+    const visibleJobs = document.querySelectorAll(
+      `.job-card${currentFilter === "all" ? "" : `[data-status="${currentFilter}"]`}`,
+    );
+
+    let count = 0;
+    visibleJobs.forEach((job) => {
+      if (job.style.display !== "none") {
+        count++;
+      }
+    });
+
+    if (count === 0) {
+      emptyState.classList.remove("hidden");
+    } else {
+      emptyState.classList.add("hidden");
+    }
+  }
+
+  document.querySelectorAll(".interview-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       const jobCard = btn.closest(".job-card");
       jobCard.dataset.status = "interview";
@@ -56,12 +71,15 @@ document.addEventListener("DOMContentLoaded", function () {
       const badge = jobCard.querySelector(".status-badge");
       badge.innerText = "Interview";
 
+      badge.classList.remove("bg-[#EEF4FF]");
+      badge.classList.add("bg-green-500", "text-white");
+
       updateCounts();
+      filterJobs(currentFilter);
     });
   });
 
-  const rejectButtons = document.querySelectorAll(".reject-btn");
-  rejectButtons.forEach(function (btn) {
+  document.querySelectorAll(".reject-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       const jobCard = btn.closest(".job-card");
       jobCard.dataset.status = "rejected";
@@ -69,16 +87,21 @@ document.addEventListener("DOMContentLoaded", function () {
       const badge = jobCard.querySelector(".status-badge");
       badge.innerText = "Rejected";
 
+      badge.classList.remove("bg-[#EEF4FF]");
+      badge.classList.add("bg-red-500", "text-white");
+
       updateCounts();
+      filterJobs(currentFilter);
     });
   });
 
-  const deleteButtons = document.querySelectorAll(".delete-btn");
-  deleteButtons.forEach(function (btn) {
+  document.querySelectorAll(".delete-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       const jobCard = btn.closest(".job-card");
       jobCard.remove();
+
       updateCounts();
+      filterJobs(currentFilter);
     });
   });
 
