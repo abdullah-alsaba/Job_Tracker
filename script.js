@@ -1,5 +1,7 @@
 /**************************** Start ****************************/
 
+
+
 const totalCount = document.getElementById("total-count");
 const interviewCount = document.getElementById("interview-count");
 const rejectedCount = document.getElementById("rejected-count");
@@ -87,7 +89,7 @@ document.querySelectorAll(".interview-btn").forEach((btn) => {
     const badge = jobCard.querySelector(".status-badge");
     badge.innerText = "Interview";
     badge.className =
-      "status-badge bg-green-500 text-white px-6 py-1 rounded-md";
+      "status-badge bg-green-500 text-white px-6 py-1 rounded-md uppercase font-bold";
 
     updateCounts();
     filterJobs(currentFilter);
@@ -101,7 +103,8 @@ document.querySelectorAll(".reject-btn").forEach((btn) => {
 
     const badge = jobCard.querySelector(".status-badge");
     badge.innerText = "Rejected";
-    badge.className = "status-badge bg-red-500 text-white px-6 py-1 rounded-md";
+    badge.className =
+      "status-badge bg-red-500 text-white px-6 py-1 rounded-md uppercase font-bold";
 
     updateCounts();
     filterJobs(currentFilter);
