@@ -1,3 +1,5 @@
+/**************************** Start ****************************/
+
 const totalCount = document.getElementById("total-count");
 const interviewCount = document.getElementById("interview-count");
 const rejectedCount = document.getElementById("rejected-count");
@@ -133,3 +135,5 @@ rejectedTab.addEventListener("click", function () {
 
 setActiveTab(allTab);
 updateCounts();
+
+/**************************** Finished ****************************/
