@@ -8,6 +8,7 @@ querySelectorAll = querySelectorAll is used for selecting all matching elements.
 2. How do you create and insert a new element into the DOM?
    
 Creating and inserting a new element into the DOM-
+
 i) First, we have to create an element that we want to add-
    Example:
            const div = document.createElement("div");
@@ -22,7 +23,7 @@ iii) Now we have to insert it into the DOM-
 
 3. What is Event Bubbling? And how does it work?
 
-Event Bubbling: Event Bubbling is a process that if you do any event in a child element, then the action will go it's parent element, then the parent's parent element. Until the action reaches the document, it will work upward like a bubble.
+Event Bubbling: Event Bubbling is a process where, if you do any event in a child element, the action will go to its parent element, then the parent's parent element. Until the action reaches the document, it will work upward like a bubble.
 Like if you click a child element button, then it will work button => div => body => document
 
 4. What is Event Delegation in JavaScript? Why is it useful?
